@@ -91,12 +91,8 @@ function simplificar(num,den){
     return [num,den];
 } 
 
-var fraccion = leer_fraccion();
-var num = fraccion[0];
-var den = fraccion[1];
-
-
 function leer_fraccion(){
+
     num = parseInt(prompt("Ingrese el Numerador."));
     den = parseInt(prompt("Ingrese el Denominador."));
     fraccion = simplificar(num,den);
@@ -104,9 +100,45 @@ function leer_fraccion(){
 }
 function escribir_fraccion(num,den){
     if(den==1){
-        return [num]
+       alert(num)
     } else {
-        return [num +"/"+den]
+        alert(num +"/"+den)
     }
 }
-alert(escribir_fraccion(num,den));
+
+function sumar_fraccion(){
+    f1 = leer_fraccion();
+    f2 = leer_fraccion();
+    var num = f1[0]*f2[1]+f1[1]*f2[0];
+    var den = f1[1]*f2[1];
+    fraccion = simplificar(num,den);
+    escribir_fraccion(fraccion[0],fraccion[1]);
+}
+
+function restar_fraccion(){
+    f1 = leer_fraccion();
+    f2 = leer_fraccion();
+    var num = f1[0]*f2[1]-f1[1]*f2[0];
+    var den = f1[1]*f2[1];
+    fraccion = simplificar(num,den);
+    escribir_fraccion(fraccion[0],fraccion[1]);
+}
+
+function multiplicar_fraccion(){
+    f1 = leer_fraccion();
+    f2 = leer_fraccion();
+    var num = f1[0]*f2[0];
+    var den = f1[1]*f2[1];
+    fraccion = simplificar(num,den);
+    escribir_fraccion(fraccion[0],fraccion[1]);
+}
+
+function dividir_fraccion(){
+    f1 = leer_fraccion();
+    f2 = leer_fraccion();
+    var num = f1[0]*f2[1];
+    var den = f1[1]*f2[0];
+    fraccion = simplificar(num,den);
+    escribir_fraccion(fraccion[0],fraccion[1]);
+}
+
