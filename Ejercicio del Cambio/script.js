@@ -25,66 +25,103 @@ function actualizarCaja(caja, pago) {
     }
     return caja
 }
-var caja = inicializarEfectivo(0, 0, 0, 1, 4, 8, 2, 5, 4, 0, 1, 1, 2, 3, 1);
-const billetesMonedas = [500, 200, 100, 50, 20, 10, 5, 2, 1, 0.5, 0.2, 0.1, 0.05, 0.02, 0.01];
-caja = calcularTotal(caja, billetesMonedas);
+
 
 //alert(caja);
+var pago = [];
+var precio;
 
-var precio = 17.43;
-var pago = inicializarEfectivo(0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-pago = calcularTotal(pago, billetesMonedas);
-//alert(pago);
-if (pago[pago.length - 1] - precio == 0) {
-    alert('sin cambio');
-    /* caja = actualizarCaja(caja, pago) */
-} else {
-    var devolver = pago[pago.length - 1] - precio
-    alert("El cambio de la operación es: " + devolver.toFixed(2) + "€");
-    if (devolver > caja[caja.length - 1]) {
-        alert("No tenemos cambio")
+function recoger() {
+    var caja = inicializarEfectivo(2, 2, 2, 1, 4, 8, 2, 5, 4, 2, 3, 1, 2, 3, 1);
+    const billetesMonedas = [500, 200, 100, 50, 20, 10, 5, 2, 1, 0.5, 0.2, 0.1, 0.05, 0.02, 0.01];
+    caja = calcularTotal(caja, billetesMonedas);
+
+    precio = parseInt(document.getElementById("precio").value);
+
+    pago[0] = parseInt(document.getElementById("500").value);
+    pago[1] = parseInt(document.getElementById("200").value);
+    pago[2] = parseInt(document.getElementById("100").value);
+    pago[3] = parseInt(document.getElementById("50").value);
+    pago[4] = parseInt(document.getElementById("20").value);
+    pago[5] = parseInt(document.getElementById("10").value);
+    pago[6] = parseInt(document.getElementById("5").value);
+    pago[7] = parseInt(document.getElementById("2").value);
+    pago[8] = parseInt(document.getElementById("1").value);
+    pago[9] = parseInt(document.getElementById("05").value);
+    pago[10] = parseInt(document.getElementById("02").value);
+    pago[11] = parseInt(document.getElementById("01").value);
+    pago[12] = parseInt(document.getElementById("005").value);
+    pago[13] = parseInt(document.getElementById("002").value);
+    pago[14] = parseInt(document.getElementById("001").value);
+    for(let i=0;i<pago.length;i++){
+       if(isNaN(pago[i])){
+        pago[i] = 0;
+       }
+    }
+    console.log(pago)
+    cobrar(precio,pago,caja,billetesMonedas)
+}
+function cobrar(precio, pago, caja, billetesMonedas) {
+
+    console.log(precio)
+    pago = calcularTotal(pago, billetesMonedas);
+    //alert(pago);
+    if (pago[pago.length - 1] - precio == 0) {
+        alert('sin cambio');
+        /* caja = actualizarCaja(caja, pago) */
     } else {
-        var devolucion = inicializarEfectivo(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+        var devolver = pago[pago.length - 1] - precio
+        alert("El cambio de la operación es: " + devolver.toFixed(2) + "€");
+        if(pago[pago.length - 1] < precio){
+            alert("Te falta dinero para pagar")
+        } else {
+        if (devolver > caja[caja.length - 1]) {
+            alert("No tenemos cambio")
+        } else {
+            var devolucion = inicializarEfectivo(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 
-        for (var i = 0; i < devolucion.length; i++) {
-            for (var j = 0; j < caja[i]; j++) {
-                if (devolver >= billetesMonedas[i]) {
-                    devolucion[i]--;
-                    devolver -= billetesMonedas[i];
-                    devolver = Math.round((devolver + Number.EPSILON) * 100) / 100;
+            for (var i = 0; i < devolucion.length; i++) {
+                for (var j = 0; j < caja[i]; j++) {
+                    if (devolver >= billetesMonedas[i]) {
+                        devolucion[i]--;
+                        devolver -= billetesMonedas[i];
+                        devolver = Math.round((devolver + Number.EPSILON) * 100) / 100;
+                    }
                 }
             }
-        }
-        console.log(devolucion)
-        console.log(caja)
-        if (devolver != 0) {
-            alert("No se puede devolver")
-        } else {
             console.log(devolucion)
             console.log(caja)
-            caja = actualizarCaja(caja, devolucion);
-            caja = actualizarCaja(caja, pago)
-            caja = calcularTotal(caja, billetesMonedas)
-            console.log(caja)
-            var msj = "El cambio es de:\n";
-            for (let i = 0; i < devolucion.length - 1; i++) {
-                if (devolucion[i] != 0) {
-                    msj += (devolucion[i] * -1) + " billete de " + billetesMonedas[i] + "€ \n"
+            if (devolver != 0) {
+                alert("No se puede devolver")
+            } else {
+                console.log(devolucion)
+                console.log(caja)
+                caja = actualizarCaja(caja, devolucion);
+                caja = actualizarCaja(caja, pago)
+                caja = calcularTotal(caja, billetesMonedas)
+                console.log(caja)
+                var msj = "El cambio es de:\n";
+                for (let i = 0; i < devolucion.length - 1; i++) {
+                    if (devolucion[i] != 0) {
+                        msj += (devolucion[i] * -1) + " billete de " + billetesMonedas[i] + "€ \n"
+                    }
                 }
+                alert(msj)
+                alert("La cantidad total de caja es de: " + caja[caja.length - 1] + "€")
             }
-            alert(msj)
-            alert("La cantidad total de caja es de: " + caja[caja.length - 1] + "€")
         }
     }
 }
-console.log(devolucion)
+}
 
-
-
-
-
-
-
+/* function iniciar(billetesMonedas){
+   for(let i=0;i<billetesMonedas.length;i++;){
+    var etiqueta = document.createElement("form"); 
+    var contenido = document.createElement (texto); 
+    etiqueta.appendChild (contenido); 
+    document.body.appendChild(etiqueta);
+   }
+} */
 
 
 /*         if (caja[i]*billetesMonedas[i]>=devolver){
