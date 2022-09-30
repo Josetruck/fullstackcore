@@ -24,7 +24,7 @@ var pago = [];
 var precio;
 
 function recoger() {
-    var caja = inicializarEfectivo(2, 2, 2, 1, 4, 8, 2, 5, 4, 2, 3, 1, 2, 3, 1);
+    var caja = inicializarEfectivo(2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2);
     const billetesMonedas = [500, 200, 100, 50, 20, 10, 5, 2, 1, 0.5, 0.2, 0.1, 0.05, 0.02, 0.01];
     caja = calcularTotal(caja, billetesMonedas);
 

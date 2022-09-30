@@ -8,8 +8,9 @@ class Hexagono {
         var j = 0;
         var i = 0;
         var k = 0;
-        for (j = 0; j < this.min; j++) {
-            for (i = 0; i < ((this.max - this.min) / 2) -j; i++) {
+        var dif = this.max - this.min;
+        for (j = 0; j < dif/2+1; j++) {
+            for (i = 0; i < (dif / 2)-j; i++) {
                 output += " ";
             }
             for(k=0;k<this.min+j*2;k++){
@@ -17,7 +18,7 @@ class Hexagono {
             }
             output += "\n";
         }
-        for(var a=1;a<=this.min-1;a++){
+        for(var a=1;a<=dif/2;a++){
             for(var b=0;b<a;b++){
                 output+=" ";
             }
@@ -26,9 +27,8 @@ class Hexagono {
                 }
             output += "\n"
         }
-        console.log(output)
-        alert(output);
+        console.log(output);
     }
 }
-
-parseInt(prompt('minimo')),parseInt(prompt('maximo'))
+var n = new Hexagono(2,10);
+n.pinta()
