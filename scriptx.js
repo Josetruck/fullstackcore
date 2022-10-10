@@ -1,13 +1,4 @@
-let frutas = ["Manzana", "Banana", "Fresa", "Piña"];
-
-    let frutasObject = new Array(["Cereza", "Papaya"], ["Pera", "Sandía"]);
-
-    //forEach 
-    frutasObject.forEach(element => {
-        element.forEach(element2 => {
-        for(l of element2){
-            console.log(l);
-        }
-        console.log("Fin Fruta");
-        });
-    });
+fetch('https://api.github.com/users/daviniathebridge')
+.then(res=>res.json())
+.then(json=>{localStorage.setItem("followers" , `${json.followers}`)});
+console.log(followers)
