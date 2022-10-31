@@ -1,7 +1,7 @@
 const user=["parvovirus","josetruck","gmirg","Grons"];
 var mapped = user.map((nombre)=>
-fetch(`https://api.github.com/users/${nombre}`))
-console.log(mapped)
+fetch(`https://api.github.com/users/${nombre}`));
+console.log(mapped);
 Promise.all(mapped)
   .then(responses => {
     // todas las respuestas son resueltas satisfactoriamente
